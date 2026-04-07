@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySync - Collaborative Notes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <!-- Header -->
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h2>StudySync</h2>
+                        <p>Collaborative Notes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-section">
+                <div class="nav-label">Navigation</div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#notes" class="nav-link" data-page="notes">
+                            <i class="fas fa-file-text"></i>
+                            <span>My Notes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#templates" class="nav-link" data-page="templates">
+                            <i class="fas fa-book-open"></i>
+                            <span>Templates</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- User Profile -->
+            <div class="user-profile">
+                <div class="profile-card">
+                    <div class="avatar">S</div>
+                    <div class="profile-info">
+                        <h4>Student User</h4>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button id="mobileMenuBtn" class="btn btn-ghost mobile-menu" style="display: none;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search notes..." id="searchInput" />
+                    </div>
+                    <button class="btn btn-ghost" id="themeToggle" title="Toggle Theme">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+
+                    <button class="btn btn-ghost notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area" id="contentArea">
+                <!-- Dashboard Content -->
+                <div class="page-content" id="dashboardPage">
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="card stat-card fade-in">
+                            <div class="card-content">
+                                <div class="stat-info">
+                                    <h3>My Notes</h3>
+                                    <div class="stat-value">
+                                        <span class="stat-number" id="totalNotes">0</span>
+                                        <div class="stat-change">
+                                            <i class="fas fa-trending-up"></i>
+                                            <span>+12%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-icon blue">
+                                    <i class="fas fa-file-text"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card fade-in" style="animation-delay: 0.1s;">
+                            <div class="card-content">
+                                <div class="stat-info">
+                                    <h3>Shared Notes</h3>
+                                    <div class="stat-value">
+                                        <span class="stat-number" id="sharedNotes">0</span>
+                                        <div class="stat-change">
+                                            <i class="fas fa-trending-up"></i>
+                                            <span>+5%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-icon purple">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card fade-in" style="animation-delay: 0.2s;">
+                            <div class="card-content">
+                                <div class="stat-info">
+                                    <h3>Comments</h3>
+                                    <div class="stat-value">
+                                        <span class="stat-number" id="totalComments">0</span>
+                                        <div class="stat-change">
+                                            <i class="fas fa-trending-up"></i>
+                                            <span>+23%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-icon green">
+                                    <i class="fas fa-comment"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card fade-in" style="animation-delay: 0.3s;">
+                            <div class="card-content">
+                                <div class="stat-info">
+                                    <h3>Subjects</h3>
+                                    <div class="stat-value">
+                                        <span class="stat-number" id="totalSubjects">0</span>
+                                        <div class="stat-change">
+                                            <i class="fas fa-trending-up"></i>
+                                            <span>+2%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-icon orange">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Grid -->
+                    <div class="dashboard-grid">
+                        <!-- Recent Notes -->
+                        <div class="card slide-up">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-file-text" style="color: var(--primary);"></i>
+                                    Recent Notes
+                                </h3>
+                                <button class="btn btn-ghost btn-sm" onclick="switchPage('notes')">
+                                    View All
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="card-content" id="recentNotes">
+                                <div class="empty-state">
+                                    <div class="empty-icon"
+                                        style="background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));">
+                                        <i class="fas fa-file-text" style="color: var(--primary);"></i>
+                                    </div>
+                                    <h3>No notes yet</h3>
+                                    <p>Create your first note to get started</p>
+                                    <button class="btn btn-primary" onclick="createNewNote()">
+                                        Create Note
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="card slide-up" style="animation-delay: 0.1s;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-comment" style="color: var(--secondary);"></i>
+                                    Recent Activity
+                                </h3>
+                            </div>
+                            <div class="card-content" id="recentActivity">
+                                <div class="empty-state">
+                                    <div class="empty-icon"
+                                        style="background: linear-gradient(to right, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));">
+                                        <i class="fas fa-comment" style="color: var(--secondary);"></i>
+                                    </div>
+                                    <h3>No recent activity</h3>
+                                    <p>Comments and collaborations will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Subject Overview -->
+                        <div class="card slide-up" style="animation-delay: 0.2s;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-book-open" style="color: var(--success);"></i>
+                                    Subjects
+                                </h3>
+                            </div>
+                            <div class="card-content" id="subjectOverview">
+                                <div class="empty-state">
+                                    <div class="empty-icon"
+                                        style="background: linear-gradient(to right, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1));">
+                                        <i class="fas fa-book-open" style="color: var(--success);"></i>
+                                    </div>
+                                    <h3>No subjects yet</h3>
+                                    <p>Add subjects to your notes to see them here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Page -->
+                <div class="page-content" id="notesPage" style="display: none;">
+                    <div class="page-header">
+                        <h2>My Notes</h2>
+                        <div class="header-actions">
+                            <div class="filter-controls">
+                                <select id="subjectFilter" class="filter-select">
+                                    <option value="">All Subjects</option>
+                                </select>
+                                <select id="privacyFilter" class="filter-select">
+                                    <option value="">All Privacy Levels</option>
+                                    <option value="private">Private</option>
+                                    <option value="shared">Shared</option>
+                                    <option value="public">Public</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="createNewNote()">
+                                <i class="fas fa-plus"></i>
+                                New Note
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="notes-grid" id="notesGrid">
+                        <div class="empty-state">
+                            <div class="empty-icon"
+                                style="background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));">
+                                <i class="fas fa-file-text" style="color: var(--primary);"></i>
+                            </div>
+                            <h3>No notes found</h3>
+                            <p>Create your first note to get started</p>
+                            <button class="btn btn-primary" onclick="createNewNote()">
+                                Create Note
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Templates Page -->
+                <div class="page-content" id="templatesPage" style="display: none;">
+                    <div class="page-header">
+                        <h2>Templates</h2>
+                        <button class="btn btn-primary" onclick="createTemplate()">
+                            <i class="fas fa-plus"></i>
+                            Create Template
+                        </button>
+                    </div>
+
+                    <div class="templates-grid" id="templatesGrid">
+                        <!-- Built-in templates will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay" class="modal-overlay">
+        <!-- Note Editor Modal -->
+        <div id="noteEditorModal" class="modal note-editor-modal">
+            <!-- Note Header -->
+            <div class="note-header">
+                <input id="noteTitle" type="text" placeholder="Note title..." class="note-title-input">
+                <div class="note-controls">
+                    <select id="noteSubject" class="note-select">
+                        <option value="">Select subject...</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Biology">Biology</option>
+                        <option value="History">History</option>
+                        <option value="Literature">Literature</option>
+                        <option value="Psychology">Psychology</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Philosophy">Philosophy</option>
+                    </select>
+                    <select id="notePrivacy" class="note-select">
+                        <option value="private">Private</option>
+                        <option value="shared">Shared</option>
+                        <option value="public">Public</option>
+                    </select>
+                    <button id="favoriteBtn" class="btn btn-ghost" onclick="toggleFavorite()">
+                        <i class="fas fa-star"></i>
+                    </button>
+                    <button onclick="deleteNote()" class="btn btn-ghost btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button onclick="closeModal()" class="btn btn-ghost">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tags Section -->
+            <div class="tags-section">
+                <div class="tags-input-container">
+                    <input id="tagInput" type="text" placeholder="Add tags..." class="tag-input">
+                    <button class="btn btn-sm btn-ghost" onclick="addTag()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div id="tagsList" class="tags-list"></div>
+            </div>
+
+            <!-- Editor Toolbar -->
+            <div class="editor-toolbar">
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" data-command="bold" title="Bold">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button class="toolbar-btn" data-command="italic" title="Italic">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button class="toolbar-btn" data-command="underline" title="Underline">
+                        <i class="fas fa-underline"></i>
+                    </button>
+                    <button class="toolbar-btn" data-command="strikeThrough" title="Strikethrough">
+                        <i class="fas fa-strikethrough"></i>
+                    </button>
+                </div>
+                <div class="toolbar-separator"></div>
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
+                        <i class="fas fa-list-ul"></i>
+                    </button>
+                    <button class="toolbar-btn" data-command="insertOrderedList" title="Numbered List">
+                        <i class="fas fa-list-ol"></i>
+                    </button>
+                    <button class="toolbar-btn" onclick="insertBlockquote()" title="Quote">
+                        <i class="fas fa-quote-left"></i>
+                    </button>
+                </div>
+                <div class="toolbar-separator"></div>
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" onclick="insertHeading(1)" title="Heading 1">H1</button>
+                    <button class="toolbar-btn" onclick="insertHeading(2)" title="Heading 2">H2</button>
+                    <button class="toolbar-btn" onclick="insertHeading(3)" title="Heading 3">H3</button>
+                </div>
+                <div class="toolbar-separator"></div>
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" onclick="insertLink()" title="Insert Link">
+                        <i class="fas fa-link"></i>
+                    </button>
+                    <button class="toolbar-btn" onclick="insertImage()" title="Insert Image">
+                        <i class="fas fa-image"></i>
+                    </button>
+                    <button class="toolbar-btn" data-command="insertHorizontalRule" title="Horizontal Line">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <div class="toolbar-separator"></div>
+                <div class="toolbar-group">
+                    <select id="fontSelect" class="toolbar-select">
+                        <option value="">Font</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Verdana">Verdana</option>
+                    </select>
+                    <select id="fontSizeSelect" class="toolbar-select">
+                        <option value="">Size</option>
+                        <option value="1">Small</option>
+                        <option value="3">Normal</option>
+                        <option value="5">Large</option>
+                        <option value="7">Huge</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Editor Content -->
+            <div id="noteEditor" contenteditable="true" class="note-editor"
+                data-placeholder="Start writing your note here..."></div>
+
+            <!-- Editor Footer -->
+            <div class="editor-footer">
+                <div class="editor-status">
+                    <span id="lastSaved">Ready</span>
+                    <span class="word-count">Words: <span id="wordCount">0</span></span>
+                </div>
+                <div class="editor-actions">
+                    <button class="btn btn-ghost" onclick="previewNote()">
+                        <i class="fas fa-eye"></i>
+                        Preview
+                    </button>
+                    <button class="btn btn-ghost" onclick="shareNote()">
+                        <i class="fas fa-share"></i>
+                        Share
+                    </button>
+                    <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveNote()">
+                        <i class="fas fa-save"></i>
+                        Save Note
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Share Modal -->
+        <div id="shareModal" class="modal share-modal" style="display: none;">
+            <div class="modal-header">
+                <h3>Share Note</h3>
+                <button onclick="closeShareModal()" class="btn btn-ghost">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="share-section">
+                    <label>Privacy Level</label>
+                    <select id="sharePrivacySelect" class="form-control">
+                        <option value="private">Private - Only you can view</option>
+                        <option value="shared">Shared - Only invited collaborators can view</option>
+                        <option value="public">Public - Anyone with the link can view</option>
+                    </select>
+                </div>
+
+                <div class="share-section" id="shareUrlSection" style="display: none;">
+                    <label>Share Link</label>
+                    <div class="share-url-container">
+                        <input id="shareUrl" type="text" readonly class="form-control">
+                        <button onclick="copyShareUrl()" class="btn btn-primary">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="share-section" id="collaboratorsSection" style="display: none;">
+                    <label>Collaborators</label>
+                    <div class="collaborator-input">
+                        <input id="collaboratorEmail" type="email" placeholder="Enter email address..."
+                            class="form-control">
+                        <button onclick="addCollaborator()" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div id="collaboratorsList" class="collaborators-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
